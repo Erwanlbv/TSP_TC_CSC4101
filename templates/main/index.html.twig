@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Couettes & Cafés {% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block navigationBar %}
+{% endblock %}
+
+
+{% block body %}
+
+     <div class="navbar navbar-light bg-light"
+          style="background-image: url('/dist/assets/airbnb.jpg');
+                 background-size: cover;
+                 height: 800px;
+                "
+     >
+         <div class="container-fluid col-md-3 col-md-offset-2 bg-transparent">
+
+             <form class="d-flex">
+                 <input class="form-control w-90 bg-transparent" type="search" placeholder="Fausse barre de recherche" aria-label="Search">
+                 <button class="btn btn-outline-success" type="submit">Search</button>
+             </form>
+         </div>
+     </div>
+    <div class="bg-white">
+        <div class="card-text " style="text-align: center;font-size: 30px">
+            <p></p>
+            {% if app.user %}
+            <h4 class="fst-italic text-dark"> {{ user.firstName }},  nos annonces du moments pour vous : </h4>
+            {% else %}
+            <h3 class="fst-italic text-dark"> Nos annonces du moments : </h3>
+            {% endif %}
+            <p></p>
+        </div>
+        <div class="row-cols-3 row-cols-md-1 g-4" style="justify-content: space-between">
+            {% for region in regions %}
+                <p>_________</p>
+                <h4 class="bg-white"> {{ region.name }} </h4>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {%  for room in region.rooms %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="{{ path('room_show', {'id': room.id}) }}" class="text-dark" style="text-decoration: none">
+                                {# Mettre room.mainImage à terme dans cette image #}
+                                <img src="{{ asset('/dist/assets/salon.jpg') }}" class="card-img-top" alt="mainImage">
+                                <div class="card-body">
+                                    <h5 class="card-title "> {{ room.summary }}</h5>
+                                    <p class="card-text fst-italic text-muted"> Au prix de {{ room.price }} €, Capacité de {{ room.capacity }} personnes</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                        <div class="container" style="text-align: center" >
+                            <p>  Aucune annonce pour cette région actuellement </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+

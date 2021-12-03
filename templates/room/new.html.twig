@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Room{% endblock %}
+
+{% block body %}
+
+    <p> </p>
+    <a class="btn btn-outline-success " role="button" href="{{ path('owner_rooms') }}"> << Mes annonces </a>
+    <div class="container-fluid col-md-12 col-md-offset-10 bg-transparent">
+        <div class="container-md">
+            <p></p>
+            <h1> Ajouter une annonce</h1>
+            {{ include('room/_form.html.twig') }}
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnal Room index{% endblock %}
+
+{% block body %}
+    <h1>Room index</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for room in rooms %}
+            <div class="col">
+                <div class="card">
+                    <a href="{{ path('room_show', {'id': room.id}) }}" class="list-group-item list-group-item-action" aria-current="true">
+                        <img src="{{ asset('/dist/assets/salon.jpg') }}" class="card-img-top" >
+                        <div class="card-body">
+                            <h5 class="mb-1"> {{ room.summary }}</h5>
+                            <div style="flex-wrap: wrap">
+                                <p>
+                                    {% for region in room.getRegion() %}
+                                        {% if loop.index < room.getRegion()|length %}
+                                            {{ region }} |
+                                        {% else %}
+                                            {{ region  }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                            <small> Prix d'une nuitée : {{ room.price }} €  </small>
+                            <p class="mb-1"> {{ room.description }}</p>
+                            <small class="fst-italic text-muted"> Addresse : {{ room.address }}, Capacité de {{ room.capacity }} personnes </small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div class="container" >
+                <p>  Vous n'avez aucune annonce de déposée actuellement </p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="container-md" style="text-align: center">
+        <a href="{{ path('room_new') }}" role="button" class="btn btn-outline-success"> Ajouter une annonce </a>
+    </div>
+{% endblock %}

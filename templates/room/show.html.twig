@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room{% endblock %}
+
+{% block body %}
+
+    {# if app.user.username == room.owner.username || app.user.type == superAdmin #}
+        {# Afficher le show de base du crud (avec possibilité de le modifier et retour sur "mes annonces" quand
+            il clique sur "retour"
+        #}
+
+    {# else  #}
+
+        {# Affichage d'un autre  #}
+    {# endif  #}
+
+    <div class="container">
+
+    <h1>Room</h1>
+
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('/dist/assets/salon.jpg') }}" class="d-block w-100" alt="im1">
+                    {# À terme room.image1 room.image2, ... boucle for avec possibilité d'upload autant de photo que souhaitée ? #}
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('/dist/assets/chambre1.jpg') }}" class="d-block w-100" alt="im2">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('/dist/assets/chambre2.jpg') }}" class="d-block w-100" alt="im3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ room.id }}</td>
+            </tr>
+            <tr>
+                <th>Summary</th>
+                <td>{{ room.summary }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ room.description }}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ room.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ room.price }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ room.address }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="container-fluid trans flex-wrap">
+    {% if app.user %}
+        <a href="{{ path('owner_rooms') }}" class="btn btn-outline-success">Retourner à mes annonces </a>
+        <a href="{{ path('room_edit', {'id': room.id}) }}" class="btn btn-outline-success">Modifier</a>
+        <p></p>
+        {{ include('room/_delete_form.html.twig') }}
+    {% else %}
+        <a href="{{ path('main') }}" class="btn btn-outline-success"> Retour </a>
+    {% endif %}
+        <p> </p>
+
+    </div>
+
+{% endblock %}
